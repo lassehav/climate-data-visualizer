@@ -25,4 +25,12 @@ router.get("/v1data", async (req, res) => {
   });
 });
 
+router.get("/v2data", async (req, res) => {
+  const v2data = await db.getClimateDataset("v2");
+
+  res.json({
+    v2data,
+  });
+});
+
 module.exports = router;

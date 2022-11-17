@@ -21,7 +21,10 @@ async function insertClimateData(time, value, datasetId) {
 }
 
 async function getClimateDataset(datasetId) {
-  return await knex.select().from("climatedata").where("datasetId", datasetId);
+  return await knex
+    .select("time", "value")
+    .from("climatedata")
+    .where("datasetId", datasetId);
 }
 
 function dbClose() {
