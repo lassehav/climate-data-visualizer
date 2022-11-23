@@ -33,4 +33,26 @@ router.get("/v2data", async (req, res) => {
   });
 });
 
+router.get("/v3data", async (req, res) => {
+  const co2annual = await db.getClimateDataset("v3-annual");
+  const co2monthly = await db.getClimateDataset("v3-monthly");
+
+  res.json({
+    co2annual,
+    co2monthly,
+  });
+});
+
+router.get("/v4data", async (req, res) => {
+  const v4de08 = await db.getClimateDataset("v4-de08");
+  const v4de0802 = await db.getClimateDataset("v4-de08-02");
+  const v4dss = await db.getClimateDataset("v4-dss");
+
+  res.json({
+    v4de08,
+    v4de0802,
+    v4dss,
+  });
+});
+
 module.exports = router;
