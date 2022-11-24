@@ -1,0 +1,3 @@
+runtime: nodejs16
+env_variables:
+  INSTANCE_UNIX_SOCKET: "/cloudsql/awap2022demoproject:europe-west1:climate-db"

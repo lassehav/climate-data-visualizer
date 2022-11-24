@@ -1,10 +1,9 @@
 const express = require("express");
-const dataImport = require("./climate-data/index");
 const cors = require("cors");
 const app = express();
 const db = require("./services/db");
 const climateDataRoutes = require("./routes/climateData");
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.use(cors());
 

@@ -1,14 +1,22 @@
 const config = require("../config");
 
-const knex = require("knex")({
+let dbConfig = {
   client: "mysql",
   connection: {
-    host: config.database.address,
     user: config.database.user,
     password: config.database.password,
     database: config.database.databaseName,
   },
-});
+};
+// Google App Engine will set NODE_ENV to production by default
+// https://cloud.google.com/appengine/docs/standard/nodejs/runtime
+if (process.env.NODE_ENV == "production") {
+  dbConfig.connection.socketPath = process.env.INSTANCE_UNIX_SOCKET; // e.g. '/cloudsql/project:region:instance'
+} else {
+  dbConfig.connection.host = config.database.address;
+}
+
+const knex = require("knex")(dbConfig);
 
 function dbInit() {}
 
