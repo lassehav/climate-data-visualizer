@@ -38,7 +38,7 @@ async function doDataImport(filePath, datasetId) {
         let value = parseFloat(
           fileArr[i].substring(valueStartPos, valueEndPos)
         );
-        console.log("date: ", date, "value: ", value);
+        //console.log("date: ", date, "value: ", value);
         await db.insertClimateData(date, value, datasetId);
       }
 

@@ -13,7 +13,7 @@ async function doDataImport(filePath, datasetId) {
         year = year.padStart(4, "0");
         const date = year + "-01-01";
         let value = parseFloat(fileArr[i].substring(7, 14));
-        console.log("date: ", date, "value: ", value);
+        //console.log("date: ", date, "value: ", value);
         await db.insertClimateData(date, value, datasetId);
       }
 

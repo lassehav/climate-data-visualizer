@@ -14,7 +14,7 @@ async function doDataImport(filePath, datasetId) {
         let date = year + "-01-01";
 
         let value = parseFloat(fileArr[i].substring(80, 86));
-        console.log("date: ", date, "value: ", value);
+        //console.log("date: ", date, "value: ", value);
         await db.insertClimateData(date, value, datasetId + "-de08");
       }
 
@@ -24,7 +24,7 @@ async function doDataImport(filePath, datasetId) {
         let date = year + "-01-01";
 
         let value = parseFloat(fileArr[i].substring(80, 86));
-        console.log("date: ", date, "value: ", value);
+        //console.log("date: ", date, "value: ", value);
         await db.insertClimateData(date, value, datasetId + "-de08-02");
       }
 
@@ -34,7 +34,7 @@ async function doDataImport(filePath, datasetId) {
         let date = year + "-01-01";
 
         let value = parseFloat(fileArr[i].substring(80, 86));
-        console.log("date: ", date, "value: ", value);
+        //console.log("date: ", date, "value: ", value);
         await db.insertClimateData(date, value, datasetId + "-dss");
       }
 
