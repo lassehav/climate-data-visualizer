@@ -2,13 +2,6 @@ const db = require("../services/db");
 const express = require("express");
 const router = express.Router();
 
-if (process.env.GAE_APPLICATION) {
-  console.log("It is set!");
-  console.log(process.env.GAE_APPLICATION);
-} else {
-  console.log("No set!");
-}
-
 if (process.env.GAE_APPLICATION == undefined) {
   console.log("This should not be visible in GAE");
   const dataImport = require("../climate-data/index");
