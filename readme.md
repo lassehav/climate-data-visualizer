@@ -9,5 +9,7 @@ Use this when you have created a Cloud SQL database, but want to connect from lo
 `cloud_sql_proxy_x64.exe -instances=awap2022demoproject:europe-west1:climate-db=tcp:3306`
 
 ### Deploying to App Engine
+First build production version of the client first with command `npm run build` in the client directory.
 
-gcloud app deploy server/serverAppEngine.yaml client/clientAppEngine.yaml
+Then execute the following command in the project root directory: 
+`gcloud app deploy server/serverAppEngine.yaml client/clientAppEngine.yaml`
