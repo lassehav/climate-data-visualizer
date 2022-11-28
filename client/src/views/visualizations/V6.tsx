@@ -3,36 +3,36 @@ import PresetLineChart from "../../components/PresetLineChart";
 import TimeValueObject from "../../types/TimeValueObject";
 import axios from "axios";
 
-interface V5API extends Array<TimeValueObject> {}
+interface V6API extends Array<TimeValueObject> {}
 
-export default function V5() {
-  const [v5data, setV5data] = useState<V5API>();
+export default function V6() {
+  const [v6data, setV6data] = useState<V6API>();
   useEffect(() => {
-    async function getV5data() {
+    async function getV6data() {
       const results = await axios.get(
-        process.env.REACT_APP_API_ADDRESS + "/api/climate/v5data"
+        process.env.REACT_APP_API_ADDRESS + "/api/climate/v6data"
       );
-      setV5data(results.data.reverse());
+      setV6data(results.data.reverse());
     }
-    getV5data();
+    getV6data();
   }, []);
 
-  if (v5data == undefined || v5data == undefined) {
+  if (v6data == undefined || v6data == undefined) {
     return null;
   }
   const lineGraphData = [
     {
       label: "CO2 measurements",
-      data: v5data,
+      data: v6data,
     },
   ];
 
   return (
     <div>
-      V5 Vostok Ice Core CO2 measurements
+      V6 Ice core 800k year composite study CO2 measurements
       <PresetLineChart
         datasets={lineGraphData}
-        description="V5 Vostok Ice Core CO2 measurements"
+        description="V6 Ice core 800k year composite study CO2 measurements "
         xScaleType="category"
       />
     </div>

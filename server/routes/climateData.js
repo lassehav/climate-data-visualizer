@@ -66,4 +66,10 @@ router.get("/v5data", async (req, res) => {
   res.json(v5data);
 });
 
+router.get("/v6data", async (req, res) => {
+  const v6data = await db.getClimateDataset("v6");
+
+  res.json(v6data);
+});
+
 module.exports = router;
