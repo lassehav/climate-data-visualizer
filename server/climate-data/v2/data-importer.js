@@ -25,13 +25,11 @@ async function doDataImport(filePath, datasetId) {
   });
 }
 
-function importV2Data() {
+module.exports = function () {
   return Promise.all([
     doDataImport("./climate-data/v2/nhtemp-moberg2005.txt", "v2"),
   ]).then(() => {
     console.log("Dataset import done");
     //    db.dbClose();
   });
-}
-
-module.exports = importV2Data;
+};

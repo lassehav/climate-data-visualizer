@@ -46,13 +46,11 @@ async function doDataImport(filePath, datasetId) {
   });
 }
 
-function importV2Data() {
+module.exports = function () {
   return Promise.all([
     doDataImport("./climate-data/v4/lawdome.combined.dat", "v4"),
   ]).then(() => {
     console.log("Dataset import done");
     //    db.dbClose();
   });
-}
-
-module.exports = importV2Data;
+};

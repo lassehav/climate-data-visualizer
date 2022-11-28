@@ -50,7 +50,7 @@ async function doDataImport(filePath, datasetId) {
   });
 }
 
-function importV2Data() {
+module.exports = function () {
   return Promise.all([
     doDataImport("./climate-data/v3/co2_annmean_mlo.txt", "v3-annual"),
     doDataImport("./climate-data/v3/co2_mm_mlo.txt", "v3-monthly"),
@@ -58,6 +58,4 @@ function importV2Data() {
     console.log("Dataset import done");
     //    db.dbClose();
   });
-}
-
-module.exports = importV2Data;
+};

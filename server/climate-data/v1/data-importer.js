@@ -25,7 +25,7 @@ async function doDataImport(filePath, datasetId) {
   });
 }
 
-function importV1Data() {
+module.exports = function () {
   return Promise.all([
     doDataImport(
       "./climate-data/v1/HadCRUT.5.0.1.0.analysis.summary_series.global.annual.csv",
@@ -55,6 +55,4 @@ function importV1Data() {
     console.log("Dataset import done");
     //    db.dbClose();
   });
-}
-
-module.exports = importV1Data;
+};

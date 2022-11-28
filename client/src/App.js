@@ -1,8 +1,6 @@
 import "./App.css";
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
 import Co2TempView from "./views/Co2TempView";
-import V3Visualization from "./views/visualizations/V3V4";
 
 function App() {
   return (
