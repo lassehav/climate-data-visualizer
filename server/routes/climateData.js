@@ -3,7 +3,9 @@ const express = require("express");
 const router = express.Router();
 
 if (process.env.GAE_APPLICATION == undefined) {
-  console.log("This should not be visible in GAE");
+  console.log(
+    "This should only be visible in local development environment and not in GAE"
+  );
   const dataImport = require("../climate-data/index");
   router.post("/init-data", async (req, res) => {
     await dataImport();
@@ -56,6 +58,12 @@ router.get("/v4data", async (req, res) => {
     v4de0802,
     v4dss,
   });
+});
+
+router.get("/v5data", async (req, res) => {
+  const v5data = await db.getClimateDataset("v5");
+
+  res.json(v5data);
 });
 
 module.exports = router;

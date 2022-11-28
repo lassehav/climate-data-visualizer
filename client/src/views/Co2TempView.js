@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import V1V2 from "./visualizations/V1V2";
 import V3V4 from "./visualizations/V3V4";
+import V5 from "./visualizations/V5";
 
 export default function Co2TempView() {
   return (
@@ -15,6 +16,7 @@ export default function Co2TempView() {
       Co2TempView
       <V1V2 />
       <V3V4 />
+      <V5 />
     </div>
   );
 }

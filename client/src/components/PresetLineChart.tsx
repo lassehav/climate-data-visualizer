@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   Chart,
   LinearScale,
+  CategoryScale,
   PointElement,
   Tooltip,
   Legend,
@@ -11,8 +12,7 @@ import {
 import { Chart as ReactChart, Line } from "react-chartjs-2";
 import "chartjs-adapter-luxon";
 import zoomPlugin from "chartjs-plugin-zoom";
-import TimeValueObject from '../types/TimeValueObject';
-
+import TimeValueObject from "../types/TimeValueObject";
 
 function generateRGBColor() {
   const r = Math.round(Math.random() * 255);
@@ -23,22 +23,23 @@ function generateRGBColor() {
 
 interface PresetLineChartProps {
   datasets: {
-    data: TimeValueObject[] | undefined,
-    label: string,
-    hidden?: boolean
-  }[],
-  description: string, 
-  xScaleType: "time" | "linear",
+    data: TimeValueObject[] | undefined;
+    label: string;
+    hidden?: boolean;
+  }[];
+  description: string;
+  xScaleType: "time" | "linear" | "category";
 }
 
 export default function PresetLineChart({
   datasets,
   description,
   xScaleType,
-} : PresetLineChartProps) {
+}: PresetLineChartProps) {
   Chart.register(
     zoomPlugin,
     LinearScale,
+    CategoryScale,
     PointElement,
     Tooltip,
     Legend,
@@ -48,9 +49,10 @@ export default function PresetLineChart({
 
   if (datasets.length == 0) {
     return null;
-  }  
+  }
   const lineGraphData = {
-    datasets: datasets.map(d => { return {
+    datasets: datasets.map((d) => {
+      return {
         label: d.label,
         data: d.data,
         borderColor: generateRGBColor(),
@@ -59,17 +61,19 @@ export default function PresetLineChart({
           yAxisKey: "value",
         },
         pointRadius: 1,
-        hidden: d.hidden ? d.hidden : false
-      }})
+        hidden: d.hidden ? d.hidden : false,
+      };
+    }),
   };
 
   const options: any = {
     responsive: true,
     scales: {
       x: {
-        type: "time",
+        type: xScaleType,
         time: {
           unit: "month",
+          tooltipFormat: "dd.mm.yyyy",
         },
       },
     },
@@ -78,9 +82,9 @@ export default function PresetLineChart({
         display: true,
         position: "top",
       },
-      title: {        
+      title: {
         display: true,
-        text: "test",
+        text: description,
       },
       zoom: {
         zoom: {
@@ -96,9 +100,9 @@ export default function PresetLineChart({
       },
     },
   };
-    
+
   return (
-    <div>      
+    <div>
       <Line options={options} data={lineGraphData} />
     </div>
   );
