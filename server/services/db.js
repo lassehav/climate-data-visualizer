@@ -28,11 +28,39 @@ async function insertClimateData(time, value, datasetId) {
   });
 }
 
+async function insertEmissionsData(dataRow) {
+  const cleanedData = dataRow.map((d) => (d.length == 0 ? 0 : parseInt(d)));
+
+  let insertStr = cleanedData.join(",");
+  console.log(insertStr);
+
+  return await knex.raw(`INSERT INTO countryemissions VALUES (${insertStr})`);
+}
+
 async function getClimateDataset(datasetId) {
   return await knex
     .select("time", "value")
     .from("climatedata")
     .where("datasetId", datasetId);
+}
+
+async function createV8Database(columnArray) {
+  console.log(columnArray[columnArray.length - 1]);
+  let countrySqlStr = "";
+  for (let i = 0; i < columnArray.length; i++) {
+    countrySqlStr += `${columnArray[i]} INT NOT NULL`;
+    if (i < columnArray.length - 1) {
+      countrySqlStr += ", ";
+    }
+  }
+
+  return await knex.raw(
+    `CREATE TABLE IF NOT EXISTS countryemissions (${countrySqlStr}, PRIMARY KEY (Year))`
+  );
+}
+
+async function getCountryEmissionsDataset() {
+  return await knex.select().table("countryemissions");
 }
 
 function dbClose() {
@@ -44,4 +72,7 @@ module.exports = {
   dbClose,
   insertClimateData,
   getClimateDataset,
+  createV8Database,
+  insertEmissionsData,
+  getCountryEmissionsDataset,
 };

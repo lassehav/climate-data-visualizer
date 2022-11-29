@@ -34,6 +34,7 @@ export default function V5() {
         datasets={lineGraphData}
         description="V5 Vostok Ice Core CO2 measurements"
         xScaleType="category"
+        yScaleUnitText="Co2 ppm"
       />
     </div>
   );

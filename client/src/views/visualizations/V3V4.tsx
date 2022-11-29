@@ -1,17 +1,16 @@
-import React, { useEffect,  useState } from "react";
+import React, { useEffect, useState } from "react";
 import PresetLineChart from "../../components/PresetLineChart";
-import TimeValueObject from '../../types/TimeValueObject'
+import TimeValueObject from "../../types/TimeValueObject";
 import axios from "axios";
 
-
 interface V3API {
-  co2annual: TimeValueObject[],
-  co2monthly: TimeValueObject[],
+  co2annual: TimeValueObject[];
+  co2monthly: TimeValueObject[];
 }
 interface V4API {
-  v4de08: TimeValueObject[],
-  v4de0802: TimeValueObject[],
-  v4dss: TimeValueObject[]
+  v4de08: TimeValueObject[];
+  v4de0802: TimeValueObject[];
+  v4dss: TimeValueObject[];
 }
 
 export default function V3V4() {
@@ -21,15 +20,15 @@ export default function V3V4() {
     async function getV3V4data() {
       const results = await Promise.all([
         axios.get(process.env.REACT_APP_API_ADDRESS + "/api/climate/v3data"),
-        axios.get(process.env.REACT_APP_API_ADDRESS + "/api/climate/v4data")
-      ]);      
+        axios.get(process.env.REACT_APP_API_ADDRESS + "/api/climate/v4data"),
+      ]);
       setV3data(results[0].data);
       setV4data(results[1].data);
     }
     getV3V4data();
-  }, [])
+  }, []);
 
-  if((v3data == undefined) || (v4data == undefined)) {
+  if (v3data == undefined || v4data == undefined) {
     return null;
   }
 
@@ -44,15 +43,15 @@ export default function V3V4() {
     },
     {
       label: "Ice Core DE08 Measurements",
-      data: v4data.v4de08
+      data: v4data.v4de08,
     },
     {
       label: "Ice Core DE08-02 Measurements",
-      data: v4data.v4de0802
+      data: v4data.v4de0802,
     },
     {
       label: "Ice Core DSS Measurements",
-      data: v4data.v4dss
+      data: v4data.v4dss,
     },
   ];
 
@@ -63,6 +62,7 @@ export default function V3V4() {
         datasets={lineGraphData}
         description="V3 Mauna Loa Co2 measurements"
         xScaleType="time"
+        yScaleUnitText="CO2 ppm"
       />
     </div>
   );

@@ -15,26 +15,34 @@ import zoomPlugin from "chartjs-plugin-zoom";
 import TimeValueObject from "../types/TimeValueObject";
 
 function generateRGBColor() {
-  const r = Math.round(Math.random() * 255);
-  const g = Math.round(Math.random() * 255);
-  const b = Math.round(Math.random() * 255);
+  const r = Math.round(Math.random() * 240); // Not using 255 to make darker colors
+  const g = Math.round(Math.random() * 240);
+  const b = Math.round(Math.random() * 240);
   return `rgb(${r}, ${g}, ${b})`;
 }
 
 interface PresetLineChartProps {
   datasets: {
-    data: TimeValueObject[] | undefined;
+    data: TimeValueObject[] | number[] | undefined;
     label: string;
     hidden?: boolean;
   }[];
   description: string;
   xScaleType: "time" | "linear" | "category";
+  yScaleType?: "stacked";
+  yScaleUnitText?: string;
+  globalLabels?: string[];
+  legendFontSize?: number;
 }
 
 export default function PresetLineChart({
   datasets,
   description,
   xScaleType,
+  yScaleType,
+  globalLabels,
+  legendFontSize,
+  yScaleUnitText,
 }: PresetLineChartProps) {
   Chart.register(
     zoomPlugin,
@@ -50,7 +58,21 @@ export default function PresetLineChart({
   if (datasets.length == 0) {
     return null;
   }
-  const lineGraphData = {
+  let yScaleConfig = {};
+  if (yScaleType != undefined) {
+    Object.assign(yScaleConfig, { stacked: true });
+  }
+  if (yScaleUnitText != undefined) {
+    Object.assign(yScaleConfig, {
+      title: {
+        display: true,
+        text: yScaleUnitText,
+      },
+    });
+  }
+
+  let lineGraphData = {
+    labels: globalLabels,
     datasets: datasets.map((d) => {
       return {
         label: d.label,
@@ -76,11 +98,17 @@ export default function PresetLineChart({
           tooltipFormat: "dd.mm.yyyy",
         },
       },
+      y: yScaleConfig,
     },
     plugins: {
       legend: {
         display: true,
         position: "top",
+        labels: {
+          font: {
+            size: legendFontSize ? legendFontSize : 12,
+          },
+        },
       },
       title: {
         display: true,
@@ -97,6 +125,11 @@ export default function PresetLineChart({
           enabled: true,
           mode: "xy",
         },
+      },
+    },
+    elements: {
+      line: {
+        borderWidth: 1.5,
       },
     },
   };

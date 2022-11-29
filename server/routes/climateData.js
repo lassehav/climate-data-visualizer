@@ -72,4 +72,10 @@ router.get("/v6data", async (req, res) => {
   res.json(v6data);
 });
 
+router.get("/v8data", async (req, res) => {
+  const v8data = await db.getCountryEmissionsDataset();
+
+  res.json(v8data);
+});
+
 module.exports = router;

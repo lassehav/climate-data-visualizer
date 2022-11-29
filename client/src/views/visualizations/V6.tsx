@@ -34,6 +34,7 @@ export default function V6() {
         datasets={lineGraphData}
         description="V6 Ice core 800k year composite study CO2 measurements "
         xScaleType="category"
+        yScaleUnitText="CO2 ppm"
       />
     </div>
   );

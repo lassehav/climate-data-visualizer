@@ -3,6 +3,7 @@ import V1V2 from "./visualizations/V1V2";
 import V3V4 from "./visualizations/V3V4";
 import V5 from "./visualizations/V5";
 import V6 from "./visualizations/V6";
+import V8 from "./visualizations/V8";
 
 export default function Co2TempView() {
   return (
@@ -11,7 +12,8 @@ export default function Co2TempView() {
         marginLeft: "auto",
         marginRight: "auto",
         minWidth: "600px",
-        width: "75%",
+        width: "85%",
+        position: "relative",
       }}
     >
       Co2TempView
@@ -19,6 +21,8 @@ export default function Co2TempView() {
       <V3V4 />
       <V5 />
       <V6 />
+      <div>Emissions</div>
+      <V8 />
     </div>
   );
 }
