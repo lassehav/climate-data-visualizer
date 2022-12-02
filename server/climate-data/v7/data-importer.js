@@ -8,16 +8,9 @@ async function doDataImport(filePath, datasetId) {
     try {
       const data = fs.readFileSync(filePath);
       const parseResults = parse(data, { comment: "#" });
-      //console.log(parseResults);
 
       console.log("Inserting data to db...");
       for (i = 1; i < parseResults.length; i++) {
-        /*console.log(
-          "Year: " +
-            parseInt(parseResults[i][0]) * 1000 +
-            ", tempChange: " +
-            parseResults[i][2]
-        );*/
         await db.insertClimateData(
           parseInt(parseResults[i][0]) * 1000,
           parseResults[i][2],
