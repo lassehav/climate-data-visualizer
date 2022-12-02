@@ -72,6 +72,16 @@ router.get("/v6data", async (req, res) => {
   res.json(v6data);
 });
 
+router.get("/v7data", async (req, res) => {
+  const v6data = await db.getClimateDataset("v6");
+  const v7data = await db.getClimateDataset("v7-gast");
+
+  res.json({
+    v7co2: v6data,
+    v7gast: v7data,
+  });
+});
+
 router.get("/v8data", async (req, res) => {
   const v8data = await db.getCountryEmissionsDataset();
 
